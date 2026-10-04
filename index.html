@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShriMusic - Music Learning Studio</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0b1020;
+    color: #f5f7ff;
+    line-height: 1.6;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(11, 16, 32, 0.96);
+    border-bottom: 1px solid #26304d;
+}
+
+nav {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 800;
+    color: #7dd3fc;
+}
+
+nav a {
+    color: #dbeafe;
+    text-decoration: none;
+    margin-left: 18px;
+}
+
+nav a:hover {
+    color: #7dd3fc;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px 20px;
+}
+
+.hero {
+    padding: 80px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #111a38, #182554);
+}
+
+.hero h1 {
+    font-size: 60px;
+    margin-bottom: 15px;
+    color: #7dd3fc;
+}
+
+.hero p {
+    max-width: 800px;
+    margin: auto;
+    color: #cbd5e1;
+    font-size: 20px;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 13px 25px;
+    border-radius: 10px;
+    background: #38bdf8;
+    color: #06111d;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: #7dd3fc;
+}
+
+section {
+    padding: 45px 0;
+}
+
+h2 {
+    font-size: 34px;
+    margin-bottom: 22px;
+    color: #7dd3fc;
+}
+
+h3 {
+    color: #bae6fd;
+    margin-bottom: 8px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 18px;
+}
+
+.card {
+    background: #121a2f;
+    border: 1px solid #293552;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    border-color: #38bdf8;
+}
+
+.card p {
+    color: #cbd5e1;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #121a2f;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+th,
+td {
+    padding: 13px;
+    text-align: left;
+    border-bottom: 1px solid #293552;
+}
+
+th {
+    color: #7dd3fc;
+    background: #18213b;
+}
+
+input {
+    width: 100%;
+    padding: 13px;
+    border-radius: 10px;
+    border: 1px solid #33415f;
+    background: #0f172a;
+    color: white;
+    margin-bottom: 18px;
+    font-size: 16px;
+}
+
+.piano {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    padding: 25px;
+    background: #090d18;
+    border-radius: 16px;
+}
+
+.key {
+    min-width: 65px;
+    height: 210px;
+    background: #f8fafc;
+    color: #111827;
+    border: 1px solid #64748b;
+    border-radius: 0 0 8px 8px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+}
+
+.key:active,
+.key.active {
+    background: #7dd3fc;
+}
+
+.drums {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 12px;
+}
+
+.pad {
+    padding: 28px 10px;
+    background: #18213b;
+    border: 1px solid #33415f;
+    color: white;
+    border-radius: 14px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.pad:hover {
+    background: #22315a;
+}
+
+.pad:active {
+    transform: scale(0.96);
+    background: #2563eb;
+}
+
+.scale {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.note {
+    padding: 10px 15px;
+    background: #18213b;
+    border-radius: 9px;
+    color: #bae6fd;
+}
+
+.practice-box {
+    margin-top: 20px;
+    padding: 20px;
+    background: #121a2f;
+    border-radius: 15px;
+    border: 1px solid #293552;
+}
+
+.bpm-display {
+    text-align: center;
+    font-size: 40px;
+    color: #7dd3fc;
+    margin: 15px;
+}
+
+.bpm-controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.bpm-controls button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #18213b;
+    color: white;
+    border: 1px solid #33415f;
+}
+
+.bpm-controls button:hover {
+    background: #2563eb;
+}
+
+footer {
+    text-align: center;
+    padding: 35px;
+    background: #070b15;
+    color: #94a3b8;
+}
+
+@media (max-width: 700px) {
+
+    .hero h1 {
+        font-size: 42px;
+    }
+
+    nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    nav a {
+        margin: 0 6px;
+    }
+
+    .key {
+        min-width: 52px;
+        height: 170px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<nav>
+
+<div class="logo">
+🎵 ShriMusic
+</div>
+
+<div>
+<a href="#theory">Theory</a>
+<a href="#instruments">Instruments</a>
+<a href="#piano">Piano</a>
+<a href="#drums">Drums</a>
+<a href="#practice">Practice</a>
+</div>
+
+</nav>
+
+</header>
+
+
+<!-- HERO -->
+
+<div class="hero">
+
+<h1>🎵 ShriMusic</h1>
+
+<p>
+Your interactive music learning studio for notes,
+instruments, scales, chords, rhythm, practice and music tricks.
+</p>
+
+<a class="btn" href="#piano">
+Start Playing 🎹
+</a>
+
+</div>
+
+
+<main class="container">
+
+
+<!-- MUSIC THEORY -->
+
+<section id="theory">
+
+<h2>🎼 Music Theory</h2>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>🎵 Musical Notes</h3>
+
+<p>
+The basic musical notes are C, D, E, F, G, A and B.
+These notes repeat in higher and lower octaves.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>🎹 Octave</h3>
+
+<p>
+An octave is the distance between one note and another
+note with the same name at a higher or lower pitch.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>🥁 Rhythm</h3>
+
+<p>
+Rhythm controls when musical sounds happen.
+Common time signatures include 4/4, 3/4 and 6/8.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>⏱️ Tempo</h3>
+
+<p>
+Tempo describes the speed of music and is commonly
+measured in BPM, or beats per minute.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- NOTES -->
+
+<section>
+
+<h2>🎵 Notes Information</h2>
+
+<table>
+
+<tr>
+<th>Note</th>
+<th>Solfege</th>
+<th>Example</th>
+<th>Character</th>
+</tr>
+
+<tr>
+<td>C</td>
+<td>Do</td>
+<td>C Major</td>
+<td>Bright / Stable</td>
+</tr>
+
+<tr>
+<td>D</td>
+<td>Re</td>
+<td>D Major</td>
+<td>Open</td>
+</tr>
+
+<tr>
+<td>E</td>
+<td>Mi</td>
+<td>E Minor</td>
+<td>Warm</td>
+</tr>
+
+<tr>
+<td>F</td>
+<td>Fa</td>
+<td>F Major</td>
+<td>Strong</td>
+</tr>
+
+<tr>
+<td>G</td>
+<td>Sol</td>
+<td>G Major</td>
+<td>Bright</td>
+</tr>
+
+<tr>
+<td>A</td>
+<td>La</td>
+<td>A Minor</td>
+<td>Melodic</td>
+</tr>
+
+<tr>
+<td>B</td>
+<td>Ti</td>
+<td>B Minor</td>
+<td>Leading</td>
+</tr>
+
+</table>
+
+</section>
+
+
+<!-- INSTRUMENTS -->
+
+<section id="instruments">
+
+<h2>🎸 Musical Instruments</h2>
+
+<input
+id="search"
+type="text"
+placeholder="🔍 Search an instrument..."
+onkeyup="searchInstruments()"
+>
+
+<div class="grid" id="instrumentGrid">
+
+
+<div class="card instrument">
+
+<h3>🎹 Piano</h3>
+
+<p>
+Press piano keys to create precise musical notes.
+Learn scales, chords and melodies.
+</p>
+
+</div>
+
+
+<div class="card instrument">
+
+<h3>🎸 Guitar</h3>
+
+<p>
+Learn chord shapes, strumming patterns,
+scales and picking techniques.
+</p>
+
+</div>
+
+
+<div class="card instrument">
+
+<h3>🥁 Drums</h3>
+
+<p>
+Practice kick, snare, hi-hat and different
+rhythm patterns.
+</p>
+
+</div>
+
+
+<div class="card instrument">
+
+<h3>🎻 Violin</h3>
+
+<p>
+Develop bow control, intonation and
+finger placement.
+</p>
+
+</div>
+
+
+<div class="card instrument">
+
+<h3>🎺 Trumpet</h3>
+
+<p>
+Learn breath control, embouchure and
+basic note patterns.
+</p>
+
+</div>
+
+
+<div class="card instrument">
+
+<h3>🎷 Saxophone</h3>
+
+<p>
+Practice fingering, tone and melody lines.
+</p>
+
+</div>
+
+
+<div class="card instrument">
+
+<h3>🪈 Flute</h3>
+
+<p>
+Work on breathing, fingering and
+clean note transitions.
+</p>
+
+</div>
+
+
+<div class="card instrument">
+
+<h3>🎤 Voice</h3>
+
+<p>
+Train breathing, pitch, resonance and
+vocal control.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PIANO -->
+
+<section id="piano">
+
+<h2>🎹 Interactive Piano</h2>
+
+<p style="color:#cbd5e1;margin-bottom:15px">
+
+Click the piano keys or use your computer keyboard:
+
+<strong>A S D F G H J K L</strong>
+
+</p>
+
+
+<div class="piano">
+
+<div
+class="key"
+data-note="261.63"
+data-key="a">
+C<br>A
+</div>
+
+
+<div
+class="key"
+data-note="293.66"
+data-key="s">
+D<br>S
+</div>
+
+
+<div
+class="key"
+data-note="329.63"
+data-key="d">
+E<br>D
+</div>
+
+
+<div
+class="key"
+data-note="349.23"
+data-key="f">
+F<br>F
+</div>
+
+
+<div
+class="key"
+data-note="392.00"
+data-key="g">
+G<br>G
+</div>
+
+
+<div
+class="key"
+data-note="440.00"
+data-key="h">
+A<br>H
+</div>
+
+
+<div
+class="key"
+data-note="493.88"
+data-key="j">
+B<br>J
+</div>
+
+
+<div
+class="key"
+data-note="523.25"
+data-key="k">
+C5<br>K
+</div>
+
+
+<div
+class="key"
+data-note="587.33"
+data-key="l">
+D5<br>L
+</div>
+
+</div>
+
+</section>
+
+
+<!-- DRUMS -->
+
+<section id="drums">
+
+<h2>🥁 Interactive Drum Pads</h2>
+
+<p style="color:#cbd5e1;margin-bottom:15px">
+
+Click the pads or use the buttons to experiment with rhythm.
+
+</p>
+
+<div class="drums">
+
+
+<button class="pad" onclick="drum(120)">
+Q<br>
+Kick
+</button>
+
+
+<button class="pad" onclick="drum(180)">
+W<br>
+Snare
+</button>
+
+
+<button class="pad" onclick="drum(250)">
+E<br>
+Hi-Hat
+</button>
+
+
+<button class="pad" onclick="drum(320)">
+R<br>
+Tom
+</button>
+
+
+<button class="pad" onclick="drum(420)">
+T<br>
+Clap
+</button>
+
+
+<button class="pad" onclick="drum(520)">
+Y<br>
+Crash
+</button>
+
+
+</div>
+
+</section>
+
+
+<!-- SCALES -->
+
+<section>
+
+<h2>🎼 Musical Scales</h2>
+
+<div class="grid">
+
+
+<div class="card">
+
+<h3>C Major</h3>
+
+<div class="scale">
+
+<span class="note">C</span>
+<span class="note">D</span>
+<span class="note">E</span>
+<span class="note">F</span>
+<span class="note">G</span>
+<span class="note">A</span>
+<span class="note">B</span>
+<span class="note">C</span>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>A Minor</h3>
+
+<div class="scale">
+
+<span class="note">A</span>
+<span class="note">B</span>
+<span class="note">C</span>
+<span class="note">D</span>
+<span class="note">E</span>
+<span class="note">F</span>
+<span class="note">G</span>
+<span class="note">A</span>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>G Major</h3>
+
+<div class="scale">
+
+<span class="note">G</span>
+<span class="note">A</span>
+<span class="note">B</span>
+<span class="note">C</span>
+<span class="note">D</span>
+<span class="note">E</span>
+<span class="note">F#</span>
+<span class="note">G</span>
+
+</div>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- GUITAR CHORDS -->
+
+<section>
+
+<h2>🎸 Guitar Chords</h2>
+
+<div class="grid">
+
+
+<div class="card">
+
+<h3>C Major</h3>
+
+<p>
+A common open guitar chord.
+Practice switching between C, G and Am.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>G Major</h3>
+
+<p>
+A fundamental chord used in many
+beginner songs.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>A Minor</h3>
+
+<p>
+A useful minor chord for emotional
+and melodic progressions.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>E Minor</h3>
+
+<p>
+One of the easiest guitar chords
+for beginners.
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- MUSIC TRICKS -->
+
+<section>
+
+<h2>💡 Music Tricks</h2>
+
+<div class="grid">
+
+
+<div class="card">
+
+<h3>1️⃣ Practice Slowly</h3>
+
+<p>
+Start at a comfortable speed and
+increase the tempo gradually.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>2️⃣ Use a Metronome</h3>
+
+<p>
+Practicing with a steady beat
+improves timing and rhythm.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>3️⃣ Practice Scales</h3>
+
+<p>
+Scales improve finger control,
+pitch awareness and familiarity with keys.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>4️⃣ Record Yourself</h3>
+
+<p>
+Listening back can help identify
+timing, pitch and technique problems.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>5️⃣ Learn by Ear</h3>
+
+<p>
+Try to identify notes and simple
+melodies without looking at the instrument.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>6️⃣ Keep a Routine</h3>
+
+<p>
+Short daily practice sessions are
+easier to maintain than occasional long sessions.
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- PRACTICE PLAN -->
+
+<section id="practice">
+
+<h2>🏆 Daily Practice Plan</h2>
+
+<table>
+
+<tr>
+<th>Activity</th>
+<th>Recommended Time</th>
+</tr>
+
+<tr>
+<td>Warm-up</td>
+<td>5 minutes</td>
+</tr>
+
+<tr>
+<td>Scales</td>
+<td>10 minutes</td>
+</tr>
+
+<tr>
+<td>Chords / Technique</td>
+<td>10 minutes</td>
+</tr>
+
+<tr>
+<td>Song Practice</td>
+<td>20 minutes</td>
+</tr>
+
+<tr>
+<td>Free Playing</td>
+<td>10 minutes</td>
+</tr>
+
+</table>
+
+</section>
+
+
+<!-- BPM -->
+
+<section>
+
+<h2>⏱️ Interactive Metronome</h2>
+
+<div class="practice-box">
+
+<div class="bpm-display">
+
+<span id="bpm">100</span> BPM
+
+</div>
+
+<div class="bpm-controls">
+
+<button onclick="changeBPM(-10)">
+−10
+</button>
+
+<button onclick="changeBPM(-1)">
+−1
+</button>
+
+<button onclick="changeBPM(1)">
++1
+</button>
+
+<button onclick="changeBPM(10)">
++10
+</button>
+
+<button onclick="toggleMetronome()">
+▶ Start
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- TEMPO GUIDE -->
+
+<section>
+
+<h2>🥁 Tempo Guide</h2>
+
+<div class="grid">
+
+
+<div class="card">
+
+<h3>40–60 BPM</h3>
+
+<p>Slow</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>70–90 BPM</h3>
+
+<p>Moderate</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>100–120 BPM</h3>
+
+<p>Fast</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>130+ BPM</h3>
+
+<p>Very Fast</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- MUSIC PRODUCTION -->
+
+<section>
+
+<h2>🎚️ Music Production Basics</h2>
+
+<div class="grid">
+
+
+<div class="card">
+
+<h3>🎤 Recording</h3>
+
+<p>
+Capture vocals and instruments using
+a microphone or audio interface.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>🎛️ Mixing</h3>
+
+<p>
+Balance volume, panning, equalization
+and effects between tracks.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>🎚️ EQ</h3>
+
+<p>
+Equalization controls different
+frequency ranges in a sound.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>🔊 Mastering</h3>
+
+<p>
+The final stage used to prepare a
+finished track for playback.
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- FAQ -->
+
+<section>
+
+<h2>❓ Frequently Asked Questions</h2>
+
+<div class="grid">
+
+
+<div class="card">
+
+<h3>What should beginners learn first?</h3>
+
+<p>
+Start with rhythm, basic notes,
+simple scales and easy songs.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>How long should I practice?</h3>
+
+<p>
+Even 20–30 minutes every day can
+be useful when practice is focused.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Can I learn multiple instruments?</h3>
+
+<p>
+Yes. Build a strong foundation in one
+instrument while exploring others.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>What is BPM?</h3>
+
+<p>
+BPM means beats per minute and is
+used to describe musical tempo.
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<footer>
+
+<p>
+🎵 <strong>ShriMusic</strong> |
+Learn • Play • Practice • Create
+</p>
+
+<p>
+Interactive Music Learning Website
+</p>
+
+</footer>
+
+
+<script>
+
+/* ================================
+   AUDIO ENGINE
+================================ */
+
+let audioContext;
+
+function getAudio() {
+
+    if (!audioContext) {
+
+        audioContext =
+            new (window.AudioContext ||
+            window.webkitAudioContext)();
+
+    }
+
+    return audioContext;
+}
+
+
+/* ================================
+   PLAY PIANO NOTE
+================================ */
+
+function playNote(freq, duration = 0.6) {
+
+    const ctx = getAudio();
+
+    if (ctx.state === "suspended") {
+        ctx.resume();
+    }
+
+    const oscillator = ctx.createOscillator();
+
+    const gain = ctx.createGain();
+
+    oscillator.type = "sine";
+
+    oscillator.frequency.value = freq;
+
+    gain.gain.setValueAtTime(
+        0.0001,
+        ctx.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.5,
+        ctx.currentTime + 0.02
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        ctx.currentTime + duration
+    );
+
+    oscillator.connect(gain);
+
+    gain.connect(ctx.destination);
+
+    oscillator.start();
+
+    oscillator.stop(
+        ctx.currentTime + duration + 0.03
+    );
+}
+
+
+/* ================================
+   PIANO CLICK
+================================ */
+
+document
+.querySelectorAll(".key")
+.forEach(key => {
+
+    key.addEventListener("click", () => {
+
+        playNote(
+            Number(key.dataset.note)
+        );
+
+        key.classList.add("active");
+
+        setTimeout(() => {
+
+            key.classList.remove("active");
+
+        }, 150);
+
+    });
+
+});
+
+
+/* ================================
+   COMPUTER KEYBOARD PIANO
+================================ */
+
+document.addEventListener(
+"keydown",
+event => {
+
+    if (event.repeat) return;
+
+    const key =
+        document.querySelector(
+            '.key[data-key="' +
+            event.key.toLowerCase() +
+            '"]'
+        );
+
+    if (key) {
+
+        playNote(
+            Number(key.dataset.note)
+        );
+
+        key.classList.add("active");
+
+    }
+
+});
+
+
+document.addEventListener(
+"keyup",
+event => {
+
+    const key =
+        document.querySelector(
+            '.key[data-key="' +
+            event.key.toLowerCase() +
+            '"]'
+        );
+
+    if (key) {
+
+        key.classList.remove("active");
+
+    }
+
+});
+
+
+/* ================================
+   DRUM SOUND
+================================ */
+
+function drum(freq) {
+
+    const ctx = getAudio();
+
+    const oscillator =
+        ctx.createOscillator();
+
+    const gain =
+        ctx.createGain();
+
+    oscillator.type = "triangle";
+
+    oscillator.frequency.setValueAtTime(
+        freq,
+        ctx.currentTime
+    );
+
+    oscillator.frequency.exponentialRampToValueAtTime(
+        60,
+        ctx.currentTime + 0.15
+    );
+
+    gain.gain.setValueAtTime(
+        0.7,
+        ctx.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        ctx.currentTime + 0.15
+    );
+
+    oscillator.connect(gain);
+
+    gain.connect(ctx.destination);
+
+    oscillator.start();
+
+    oscillator.stop(
+        ctx.currentTime + 0.16
+    );
+
+}
+
+
+/* ================================
+   SEARCH INSTRUMENTS
+================================ */
+
+function searchInstruments() {
+
+    const text =
+        document
+        .getElementById("search")
+        .value
+        .toLowerCase();
+
+    document
+    .querySelectorAll(".instrument")
+    .forEach(card => {
+
+        if (
+            card.innerText
+            .toLowerCase()
+            .includes(text)
+        ) {
+
+            card.style.display = "block";
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+/* ================================
+   BPM METRONOME
+================================ */
+
+let bpm = 100;
+
+let metronomeTimer = null;
+
+let metronomeRunning = false;
+
+
+function changeBPM(amount) {
+
+    bpm += amount;
+
+    if (bpm < 30) {
+        bpm = 30;
+    }
+
+    if (bpm > 240) {
+        bpm = 240;
+    }
+
+    document
+    .getElementById("bpm")
+    .innerText = bpm;
+
+    if (metronomeRunning) {
+
+        stopMetronome();
+
+        startMetronome();
+
+    }
+
+}
+
+
+function metronomeClick() {
+
+    const ctx = getAudio();
+
+    const oscillator =
+        ctx.createOscillator();
+
+    const gain =
+        ctx.createGain();
+
+    oscillator.frequency.value = 1000;
+
+    gain.gain.setValueAtTime(
+        0.3,
+        ctx.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        ctx.currentTime + 0.08
+    );
+
+    oscillator.connect(gain);
+
+    gain.connect(ctx.destination);
+
+    oscillator.start();
+
+    oscillator.stop(
+        ctx.currentTime + 0.1
+    );
+
+}
+
+
+function startMetronome() {
+
+    metronomeRunning = true;
+
+    metronomeClick();
+
+    const interval =
+        60000 / bpm;
+
+    metronomeTimer =
+        setInterval(
+            metronomeClick,
+            interval
+        );
+
+}
+
+
+function stopMetronome() {
+
+    clearInterval(
+        metronomeTimer
+    );
+
+    metronomeTimer = null;
+
+    metronomeRunning = false;
+
+}
+
+
+function toggleMetronome() {
+
+    const button =
+        event.target;
+
+    if (metronomeRunning) {
+
+        stopMetronome();
+
+        button.innerText =
+            "▶ Start";
+
+    } else {
+
+        startMetronome();
+
+        button.innerText =
+            "⏹ Stop";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
